@@ -1,0 +1,61 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title" style="display: inline-block;">{{ loggedUser.name }}</h5>
+        <a href="#" style="float:right" class="btn btn-danger" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+</div>
+  <div class="col-md-12">
+    <div class="mt-2">  
+      <div class="">
+          <div class="card-content">
+            <div class="card shadow-sm bg-white rounded">
+              <div class="card-body">
+                <div class="card-content">
+                  <div style="float:right">
+                    <button class="btn btn-success" *ngIf="stop" (click)="toggleStartStop()"><i class="fas fa-running"></i> Run</button>
+                    <button class="btn btn-danger" *ngIf="!stop"  (click)="toggleStartStop()"><i class="fas fa-stop"></i> Stop</button>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6"><div><small>Velocidad</small> </div> <span>{{ kmh }} km /h  Max: {{ loggedUser.maxSpeed }} km/h</span></div>
+                    <div class="col-md-6"><div><small>Distancia</small> </div> <span>{{ distance }} km Max: / {{ loggedUser.acumDistance }} km</span></div>
+                    <div class="col-md-6"><div><small>Duración</small> </div> <countup-timer class="timer" [countUpTimerConfig]="testConfig"></countup-timer></div>
+                    <div class="col-md-6"><div><small>kCal</small> </div> 18 kcal quemadas</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card mt-2">  
+                  <div class="card-body">
+                      <div class="card-content">
+                          <apx-chart
+                          [series]="chartOptions.series"
+                          [chart]="chartOptions.chart"
+                          [xaxis]="chartOptions.xaxis"
+                          [yaxis]="chartOptions.yaxis"
+                          [title]="chartOptions.title">
+                        </apx-chart>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mt-2">  
+                  <div class="card-body">
+                      <div class="card-content">
+                          <p>Aquí irá un gráfico de objectivos</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
