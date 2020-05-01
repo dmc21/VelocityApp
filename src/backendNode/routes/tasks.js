@@ -1,29 +1,31 @@
 const router = require('express').Router();
 const mongojs = require('mongojs');
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
 const db = mongojs('db_bici',['users']);
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 router.get('/',(req,res,next) =>{
     res.send("api works");
 });
 
-
 router.post('/sigin',(req,res,next)=>{
 
-    var user = req.body.user
-    var password = req.body.password
+    var user = req.body.user;
+    var password = req.body.password;
 
     db.users.findOne({user: user, password: password},(err,user)=>{
         if(user == null) return next(err);
-   
+
         user.password = "";
-
-        console.log(user)
-
+        req.session.userId = user._id;
         res.json(user);
     });
 });
-
 
 router.get('/tasks',(req,res,next)=>{
     db.tasks.find((err,tasks)=>{

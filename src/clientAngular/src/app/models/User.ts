@@ -1,7 +1,7 @@
-export class User {
+export interface User {
   _id?: string;
   name: string;
-  username: boolean;
+  username: string;
   password: string;
   maxSpeed: number;
   maxDistance: number;
