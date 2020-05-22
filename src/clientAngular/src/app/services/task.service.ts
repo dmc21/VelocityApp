@@ -13,7 +13,7 @@ import {JwtResponseI} from '../models/JwtResponseI';
   providedIn: 'root'
 })
 export class TaskService {
-  DOMAIN: String = 'http://192.168.1.224:3000';
+  DOMAIN: String = 'http://192.168.100.17:3000';
   authSubject = new BehaviorSubject(false);
   private user: User;
   private token: string;

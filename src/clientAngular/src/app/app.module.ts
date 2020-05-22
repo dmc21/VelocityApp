@@ -25,10 +25,8 @@ import {
 } from 'ngx-mqtt';
 
 export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: '192.168.1.129',
+  hostname: '192.168.100.240',
   port: 9001,
-  username: 'david',
-  password: 'david',
   path: '/mqtt'
 };
 

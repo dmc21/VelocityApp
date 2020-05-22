@@ -104,8 +104,9 @@ export class TasksComponent implements OnInit, OnDestroy {
     if (!this.stop) {
       let acum = 1;
       this.subscription = this.mqttService.observe('sensor/velocity').subscribe((message: IMqttMessage) => {
-        this.distance = (acum * 0.001).toFixed(1);
-        this.kmh = message.payload.toString();
+        console.log(message.payload.toString());
+        this.distance = JSON.parse(message.payload.toString()).distancia;
+        this.kmh =  parseInt(JSON.parse(message.payload.toString()).velocidad).toString();
 
         console.log({km: Number(this.kmh), max: this.loggedUser.maxSpeed});
 
