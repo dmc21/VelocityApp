@@ -13,7 +13,7 @@ import {JwtResponseI} from '../models/JwtResponseI';
   providedIn: 'root'
 })
 export class TaskService {
-  DOMAIN: String = 'http://192.168.100.17:3000';
+  DOMAIN: String = 'http://localhost:3000';
   authSubject = new BehaviorSubject(false);
   private user: User;
   private token: string;
@@ -43,6 +43,14 @@ export class TaskService {
                 this.saveToken(res.dataUser.accessToken, res.dataUser.expiresIn, res.infoUser);
               }
         })
+    );
+  }
+
+  checkoutLogin(user) {
+    return this.http.post<JwtResponseI>(`${this.DOMAIN}/checkoutLogin`, user).pipe(tap(
+      (res: any) => {
+        return res;
+      })
     );
   }
 

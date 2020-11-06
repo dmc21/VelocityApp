@@ -25,9 +25,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-    const logged = JSON.parse(localStorage.getItem('session'));
-
-    if (logged != null) { this.router.navigate(['/activity']); }
+    this.loginService.checkoutLogin({token: localStorage.getItem('ACCESS_TOKEN')}).subscribe(res => {
+      if (res)
+        this.router.navigate(['/activity']);
+    });
 
   }
 

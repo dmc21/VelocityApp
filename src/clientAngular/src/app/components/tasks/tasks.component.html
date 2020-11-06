@@ -22,7 +22,7 @@
                   <div class="row">
                     <div class="col-md-6"><div><small>Velocidad</small> </div> <span>{{ kmh }} km /h  Max: {{ loggedUser.maxSpeed }} km/h</span></div>
                     <div class="col-md-6"><div><small>Distancia</small> </div> <span>{{ distance }} km Max: / {{ loggedUser.acumDistance }} km</span></div>
-                    <div class="col-md-6"><div><small>Duración</small> </div> <countup-timer class="timer" [countUpTimerConfig]="testConfig"></countup-timer></div>
+                    <div class="col-md-6"><div><small>Duración</small> </div> {{ duration }}</div>
                     <div class="col-md-6"><div><small>kCal</small> </div> 18 kcal quemadas</div>
                   </div>
                 </div>

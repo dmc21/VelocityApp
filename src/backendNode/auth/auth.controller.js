@@ -2,7 +2,7 @@
 const User = require('./auth.dao');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const SECRET_KEY = 'secretkey123456';
+const SECRET_KEY = 'ELMEJORTOKENDELAVIDADEVERDADCHORIZACOGORDOLOCO';
 
 exports.createUser = (req, res, next) => {
     const newUser = {
@@ -40,7 +40,7 @@ exports.loginUser = (req, res, next) => {
 
         if (!user) {
             // username does not exist
-            res.status(409).send({ message: 'Something is wrong' });
+            res.status(409).send({ message: 'USER NOT EXISTS Something is wrong' });
         } else {
             const resultPassword = userData.password == user.password;
             if (resultPassword) {
@@ -57,8 +57,22 @@ exports.loginUser = (req, res, next) => {
                 res.send({ dataUser: dataUser, infoUser: user });
             } else {
                 // password wrong
-                res.status(409).send({ message: 'Something is wrong' });
+                res.status(409).send({ message: 'PASSWORD Something is wrong' });
             }
         }
     });
+}
+
+exports.checkoutLogin = (req, res, next) => {
+
+    const userToken = req.body.token;
+
+    jwt.verify(userToken, SECRET_KEY, (err, verifiedJwt) => {
+        if(err){
+            res.send(false)
+        }else{
+            res.send(true)
+        }
+    })
+
 }

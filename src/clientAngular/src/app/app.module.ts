@@ -56,8 +56,7 @@ const appRoutes: Routes = [
     FormsModule,
     MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
     RouterModule.forRoot(
-      appRoutes,
-      {enableTracing: true} // <-- debugging purposes only
+      appRoutes, {useHash: true},
     )
   ],
   providers: [TaskService],

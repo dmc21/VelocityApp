@@ -63,38 +63,37 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-
   this.loggedUser = JSON.parse(localStorage.getItem('USER'));
 
-    if (this.loggedUser._id == null) {
-      this.router.navigate(['/login']);
-    } else {
-
-      this.chartOptions = {
-        series: [
-          {
-            name: 'Velocidad',
-            data: this.data,
+    this.taskService.checkoutLogin({token: localStorage.getItem('ACCESS_TOKEN')}).subscribe(res => {
+      if (!res)
+        this.router.navigate(['/login']);
+      else {
+        this.chartOptions = {
+          series: [
+            {
+              name: 'Velocidad',
+              data: this.data,
+            }
+          ],
+          yaxis: {
+            min: 0,
+            max: 100
+          },
+          chart: {
+            height: 300,
+            type: 'area',
           }
-        ],
-        yaxis: {
-          min: 0,
-          max: 100
-        },
-        chart: {
-          height: 300,
-          type: 'area',
-        }
-      };
+        };
 
-      const dur = momentjs.duration();
+        const dur = momentjs.duration();
 
-     this.timeout = setInterval(() => {
+        this.timeout = setInterval(() => {
           dur.add(1, 'second');
-         this.duration = dur.hours() + ':' + dur.minutes() + ':' + dur.seconds() + ' h';
-      }, 1000);
-
-    }
+          this.duration = dur.hours() + ':' + dur.minutes() + ':' + dur.seconds() + ' h';
+        }, 1000);
+      }
+    });
   }
 
   toggleStartStop() {
@@ -105,7 +104,7 @@ export class TasksComponent implements OnInit, OnDestroy {
       let acum = 1;
       this.subscription = this.mqttService.observe('sensor/velocity').subscribe((message: IMqttMessage) => {
         console.log(message.payload.toString());
-        this.distance = JSON.parse(message.payload.toString()).distancia;
+        this.distance = parseFloat(JSON.parse(message.payload.toString()).distancia).toFixed(1).toString();
         this.kmh =  parseInt(JSON.parse(message.payload.toString()).velocidad).toString();
 
         console.log({km: Number(this.kmh), max: this.loggedUser.maxSpeed});

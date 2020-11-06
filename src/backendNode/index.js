@@ -22,8 +22,11 @@ app.use(cors());
 app.use('/api', router);
 
 authRoutes(router);
+
 router.get('/', (req, res) => {
     res.send('Hello from home');
 });
+
 app.use(router);
+
 app.listen(propierties.PORT, () => console.log(`Server running on port ${propierties.PORT}`));
